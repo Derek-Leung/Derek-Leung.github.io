@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="lab3.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="lab3.js" defer></script>
+  </head>
+  <body>
+    <div id="content">
+      <div id="artistHeader">
+        <h2>
+          Artist Directory
+        </h2>
+        <input
+          id="artistSearchBox"
+          type="text"
+          placeholder="Search for artist"
+        />
+        <button id="addArtistBtn" onclick="showAddArtist(true)">
+          Add Artist
+        </button>
+      </div>
+      <div id="addArtist">
+        <input
+          id="artistName"
+          type="text"
+          placeholder="Artist Name"
+          maxlength="40"
+        />
+        <input
+          id="aboutArtist"
+          type="text"
+          placeholder="About Artist"
+          maxlength="40"
+        />
+        <input id="imageURL" type="text" placeholder="Image URL" />
+        <button id="addBtn" onclick="addArtist()">Add</button>
+      </div>
+      <div id="artistList">
+        <ul id="list"></ul>
+      </div>
+    </div>
+  </body>
+</html>
