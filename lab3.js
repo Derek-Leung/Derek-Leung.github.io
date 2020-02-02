@@ -29,6 +29,15 @@ let addArtist = () => {
 let showAddArtist = () => {
   let addForm = document.getElementById("addArtist");
   let display = window.getComputedStyle(addForm).display;
+
+  let artistNameInput = document.getElementById("artistName");
+  let aboutArtistInput = document.getElementById("aboutArtist");
+  let imageURLInput = document.getElementById("imageURL");
+
+  artistNameInput.value = "";
+  aboutArtistInput.value = "";
+  imageURLInput.value = "";
+
   if (display == "none") addForm.style.display = "block";
   else addForm.style.display = "none";
 };
