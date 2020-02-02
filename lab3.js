@@ -1,5 +1,3 @@
-let artistID = 0;
-
 let addArtist = () => {
   let artistNameInput = document.getElementById("artistName");
   let artistName = artistNameInput.value;
@@ -7,6 +5,7 @@ let addArtist = () => {
   let aboutArtist = aboutArtistInput.value;
   let imageURLInput = document.getElementById("imageURL");
   let imageURL = imageURLInput.value;
+  let artistID = Date.now();
 
   artistNameInput.value = "";
   aboutArtistInput.value = "";
@@ -21,7 +20,7 @@ let addArtist = () => {
   li.appendChild(descriptionDiv);
   li.appendChild(deleteBtn);
 
-  li.id = artistID++;
+  li.id = artistID;
 
   document.getElementById("list").appendChild(li);
   showAddArtist(false);
