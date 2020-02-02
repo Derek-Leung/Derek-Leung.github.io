@@ -27,9 +27,10 @@ let addArtist = () => {
   showAddArtist(false);
 };
 
-let showAddArtist = show => {
+let showAddArtist = () => {
   let addForm = document.getElementById("addArtist");
-  if (show) addForm.style.display = "inline";
+  let display = window.getComputedStyle(addForm).display;
+  if (display == "none") addForm.style.display = "block";
   else addForm.style.display = "none";
 };
 
