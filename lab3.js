@@ -69,7 +69,7 @@ let createArtistDescriptionDiv = (artistName, aboutArtist) => {
 let createDeleteBtn = artistID => {
   let deleteBtn = document.createElement("button");
   deleteBtn.className = "artistDeleteBtn";
-  deleteBtn.innerText = "Delete";
+  deleteBtn.textContent = "Delete";
 
   deleteBtn.onclick = () => {
     let element = document.getElementById(artistID);
