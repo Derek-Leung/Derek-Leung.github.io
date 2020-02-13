@@ -101,7 +101,7 @@ const searchArtist = value => {
     for (let i = 0; i < storage.length; i++) {
       let id = storage.key(i);
       let artist = JSON.parse(storage.getItem(id));
-      if (artist.name.toLowerCase().indexOf(searchString) == -1) {
+      if (artist.name.indexOf(searchString) == -1) {
         document.getElementById(id).style.display = "none";
       } else {
         document.getElementById(id).style.display = "block";
