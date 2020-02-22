@@ -1,9 +1,4 @@
 const addArtist = () => {
-  let artistInfo = {
-    name: "",
-    description: "",
-    imageURL: ""
-  };
   let artistNameInput = document.getElementById("artistName");
   let artistName = artistNameInput.value;
   let aboutArtistInput = document.getElementById("aboutArtist");
@@ -12,17 +7,21 @@ const addArtist = () => {
   let imageURL = imageURLInput.value;
   let artistID = Date.now();
 
+  fetch(
+    `/artists/add?name=${artistName}&about=${aboutArtist}&url=${imageURL}&id=${artistID}`
+  ).then(response => {
+    if (response.status !== 200) {
+      console.log("Error adding artist: ", response.status);
+      return;
+    }
+    response.json().then(data => {
+      createArtistListItem(data.name, data.about, data.id, data.url);
+    });
+  });
+  showAddArtist(false);
   artistNameInput.value = "";
   aboutArtistInput.value = "";
   imageURLInput.value = "";
-
-  artistInfo.name = artistName;
-  artistInfo.description = aboutArtist;
-  artistInfo.imageURL = imageURL;
-
-  window.localStorage.setItem(artistID, JSON.stringify(artistInfo));
-  createArtistListItem(artistName, aboutArtist, artistID, imageURL);
-  showAddArtist(false);
 };
 
 const showAddArtist = () => {
@@ -88,40 +87,59 @@ const createDeleteBtn = artistID => {
   deleteBtn.onclick = () => {
     let element = document.getElementById(artistID);
     element.parentNode.removeChild(element);
-    window.localStorage.removeItem(artistID);
+    fetch(`/artists/delete?id=${artistID}`)
+      .then(response => {
+        if (response.status !== 200) {
+          console.log("Error deleting artist: ", response.status);
+        }
+      })
+      .catch(err => {
+        console.log("Cannot connect to server:", err);
+      });
   };
 
   return deleteBtn;
 };
 
-const searchArtist = value => {
-  let searchString = value.toLowerCase();
-  if (window.localStorage.length > 0) {
-    let storage = window.localStorage;
-    for (let i = 0; i < storage.length; i++) {
-      let id = storage.key(i);
-      let artist = JSON.parse(storage.getItem(id));
-      if (artist.name.indexOf(searchString) == -1) {
-        document.getElementById(id).style.display = "none";
-      } else {
-        document.getElementById(id).style.display = "block";
-      }
+const searchArtist = () => {
+  let searchString = document
+    .querySelector("#artistSearchBox")
+    .value.toLowerCase();
+
+  let listItems = document.querySelectorAll("#list li");
+  listItems.forEach(item => item.remove());
+  fetch(`/artists/search?searchParam=${searchString}`).then(response => {
+    if (response.status !== 200) {
+      console.log("Error searching: ", response.status);
+      return;
     }
-  }
+    response.json().then(data => {
+      if (data.length > 0) {
+        data.forEach(artist =>
+          createArtistListItem(artist.name, artist.about, artist.id, artist.url)
+        );
+      }
+    });
+  });
 };
 
 (function loadArtistList() {
-  if (window.localStorage.length > 0) {
-    let storage = window.localStorage;
-    for (let i = 0; i < storage.length; i++) {
-      let id = storage.key(i);
-      let artist = JSON.parse(storage.getItem(id));
-      createArtistListItem(
-        artist.name,
-        artist.description,
-        id,
-        artist.imageURL
-      );
+  fetch(`/artists`).then(response => {
+    if (response.status !== 200) {
+      console.log("Error adding artist: ", response.status);
+      return;
     }
-  }
+    response.json().then(data => {
+      if (data.length > 0) {
+        data.forEach(artist => {
+          createArtistListItem(
+            artist.name,
+            artist.about,
+            artist.id,
+            artist.url
+          );
+        });
+      }
+    });
+  });
 })();

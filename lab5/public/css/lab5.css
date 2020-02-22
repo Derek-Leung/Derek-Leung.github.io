@@ -19,11 +19,15 @@ div#artistHeader {
 }
 
 #artistSearchBox {
-  width: 80%;
+  width: 65%;
   height: 30px;
 }
 
 #addArtistBtn {
+  width: 15%;
+  height: 30px;
+}
+#searchArtistBtn {
   width: 15%;
   height: 30px;
 }

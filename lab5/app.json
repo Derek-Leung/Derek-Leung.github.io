@@ -1,0 +1,10 @@
+{
+    "name": "Artist Application",
+    "description": "Express project that displays a list of artists with various features",
+    "repository": "https://github.com/Derek-Leung/",
+    "keywords": [
+        "node",
+        "express",
+        "heroku"
+    ]
+}
